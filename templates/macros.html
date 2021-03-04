@@ -2,7 +2,20 @@
 {%- if num < 10 -%} 0 {%- endif -%}{{ num }}
 {%- endmacro zeroextend -%}
 
-{% macro page(page, content) %}
+{% macro toc(headers) %}
+<ul>
+	{% for header in headers %}
+		<li>
+			<a href="#{{ header.id }}" class="toc-link">{{ header.title }}</a>
+			{% if header.children %}
+				{{ self::toc(headers=header.children) }}
+			{% endif %}
+		</li>
+	{% endfor %}
+</ul>
+{% endmacro toc %}
+
+{% macro page(page, content, toc=false) %}
 <header class="page-meta">
 	<h2 class="page-title">
 		<a href="{{ page.path }}" class="page-link">{{ page.title }}</a>
@@ -12,5 +25,13 @@
 		{{ self::zeroextend(num=page.day) }}.{{ self::zeroextend(num=page.month) }}.{{ page.year }}
 	</time>
 </header>
+{% if toc %}
+	<h3 id="toc"><a href="#toc">Оглавление</a></h3>
+	{{ self::toc(headers=page.toc) }}
+	<hr>
+{% endif %}
 {{ content | safe }}
 {% endmacro page %}
+
+<!-- neomake: skip -->
+<!-- vim: ft=htmldjango -->

@@ -7,6 +7,7 @@ $header-bg-color: darken($bg-color, 5%);
 $logo-fg-color: #d8a47f;
 
 $link-fg-color: $fg-color;
+$link-hover-fg-color: lighten($link-fg-color, 20%);
 
 $table-borders-color: lighten($bg-color, 20%);
 $blockquote-rule-color: lighten($bg-color, 50%);

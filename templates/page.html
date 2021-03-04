@@ -4,6 +4,7 @@
 
 {% block content %}
 <article>
-	{{ macros::page(page=page, content=page.content) }}
+	{% set toc = page.extra.toc | default(value=false) %}
+	{{ macros::page(page=page, content=page.content, toc=toc) }}
 </article>
 {% endblock content %}

@@ -10,8 +10,12 @@ h1, h2, h3, h4, h5, h6 {
 h3, h4, h5, h6 {
 	padding-top: 1rem;
 
-	& > a:hover::after {
-		content: " ¶";
+	& > a:hover {
+		color: $link-fg-color;
+
+		&::after {
+			content: " ¶";
+		}
 	}
 }
 
@@ -58,6 +62,10 @@ p {
 
 a {
 	color: $link-fg-color;
+
+	&:hover {
+		color: $link-hover-fg-color;
+	}
 }
 
 ul, ol {
@@ -70,7 +78,7 @@ li {
 
 blockquote {
 	border-left: 5px solid $blockquote-rule-color;
-	padding-left: 0.5em;
+	padding-left: 1em;
 	margin-left: 0;
 }
 
