@@ -20,7 +20,7 @@
 				{% for ancestor_path in ancestors | slice(start=1) %}
 					{% set ancestor = get_section(path=ancestor_path, metadata_only=true) %}
 					::
-					<a href="{{ ancestor.permalink }}">{{ ancestor.title }}</a>
+					<a href="{{ ancestor.path }}">{{ ancestor.title }}</a>
 				{% endfor %}
 			</h1>
 		</header>
