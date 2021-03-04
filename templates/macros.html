@@ -18,7 +18,7 @@
 {% macro page(page, content, toc=false) %}
 <header class="page-meta">
 	<h2 class="page-title">
-		<a href="{{ page.path }}" class="page-link">{{ page.title }}</a>
+		<a href="{{ page.path | safe }}" class="page-link">{{ page.title }}</a>
 	</h2>
 	<time datetime="{{ page.date }}" class="page-date">
 		написано

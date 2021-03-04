@@ -21,17 +21,16 @@
 				<a href="/">
 					goldstein's blog
 				</a>
-				{% if section %}
-					{% set ancestors = section.ancestors | concat(with=section.relative_path) %}
-				{% elif page %}
-					{% set ancestors = page.ancestors %}
-				{% endif %}
-
-				{% for ancestor_path in ancestors | slice(start=1) %}
-					{% set ancestor = get_section(path=ancestor_path, metadata_only=true) %}
+				{%- if section -%}
+					{%- set ancestors = section.ancestors | concat(with=section.relative_path) -%}
+				{%- elif page -%}
+					{%- set ancestors = page.ancestors -%}
+				{%- endif -%}
+				{%- for ancestor_path in ancestors | slice(start=1) -%}
+					{%- set ancestor = get_section(path=ancestor_path, metadata_only=true) -%}
 					::
-					<a href="{{ ancestor.path }}">{{ ancestor.title }}</a>
-				{% endfor %}
+					<a href="{{ ancestor.path | safe }}">{{ ancestor.title }}</a>
+				{%- endfor -%}
 			</h1>
 		</header>
 		<main>	
