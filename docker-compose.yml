@@ -1,4 +1,5 @@
 services:
     blog:
         build: .
-        ports: "127.0.0.1:6709:80"
+        ports:
+        - "127.0.0.1:6709:80"
