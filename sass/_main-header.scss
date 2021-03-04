@@ -1,0 +1,20 @@
+.main-header {
+	box-sizing: border-box;
+	width: 100%;
+	padding: {
+		top: 0.5em;
+		bottom: 0.5em;
+		left: 1em;
+	};
+
+	background-color: $header-bg-color;
+}
+
+.logo {
+	margin: 0;
+}
+
+.logo > a {
+	color: $logo-fg-color;
+	text-decoration: none;
+}

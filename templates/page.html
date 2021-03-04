@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% import "macros.html" as macros %}
+{% block title %}{{ page.title }} @ goldstein's blog{% endblock title %}
+
+{% block content %}
+<article>
+	{{ macros::page(page=page, content=page.content) }}
+</article>
+{% endblock content %}

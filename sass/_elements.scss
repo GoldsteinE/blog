@@ -1,0 +1,92 @@
+h1, h2, h3, h4, h5, h6 {
+	@include headers-font;
+
+	& > a {
+		text-decoration: none;
+	}
+}
+
+// Sections inside the page
+h3, h4, h5, h6 {
+	padding-top: 1rem;
+
+	& > a:hover::after {
+		content: " ¶";
+	}
+}
+
+h1 {
+	font-size: 22pt;	
+}
+
+h2 {
+	font-size: 20pt;
+}
+
+h3 {
+	font-size: 18pt;
+}
+
+h4, h5, h6 {
+	font-size: 16pt;
+}
+
+pre {
+	padding: 0.5em;
+	overflow-x: auto;
+}
+
+code {
+	@include monospace-font;
+
+	white-space: pre;
+	background-color: $code-bg-color;
+	padding: {
+		left: 0.2em;
+		right: 0.2em;
+	};
+}
+
+pre > code {
+	padding: 0;
+	background-color: inherit;
+}
+
+p {
+	line-height: 1.8;
+}
+
+a {
+	color: $link-fg-color;
+}
+
+ul, ol {
+	padding-left: 2em;
+}
+
+li {
+	margin-bottom: 0.3em;
+}
+
+blockquote {
+	border-left: 5px solid $blockquote-rule-color;
+	padding-left: 0.5em;
+	margin-left: 0;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 1px solid $table-borders-color;
+}
+
+td, th {
+	padding: {
+		top: 0.5em;
+		bottom: 0.5em;
+		left: 1em;
+		right: 1em;
+	};
+}

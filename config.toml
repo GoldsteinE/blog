@@ -1,0 +1,9 @@
+base_url = "https://blog.goldstein.rs/"
+compile_sass = true
+
+[markdown]
+highlight_code = true
+highlight_theme = "charcoal"
+extra_syntaxes = ["syntaxes"]
+
+[extra]

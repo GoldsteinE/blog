@@ -1,0 +1,46 @@
+@import 'normalize';
+
+@import 'fonts';
+@import 'colors';
+@import 'elements';
+@import 'main-header';
+
+body {
+	@include main-font;
+	background: $bg-color;
+	color: $fg-color;
+	font-size: 14pt;
+}
+
+main {
+	max-width: 780px;
+
+	margin: {
+		left: 20px;
+		right: 20px;
+	};
+
+	@media (min-width: 820px) {
+		margin: {
+			left: auto;
+			right: auto;
+		};
+	}
+}
+
+.page-entry {
+	margin-top: 1rem;
+
+	&:not(:first-child) {
+		margin-top: 2rem;
+	}
+}
+
+.page-title {
+	margin-bottom: 0;
+}
+
+.page-date {
+	font-size: 0.9rem;
+	font-style: italic;
+}

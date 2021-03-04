@@ -1,0 +1,16 @@
+{%- macro zeroextend(num) -%}
+{%- if num < 10 -%} 0 {%- endif -%}{{ num }}
+{%- endmacro zeroextend -%}
+
+{% macro page(page, content) %}
+<header class="page-meta">
+	<h2 class="page-title">
+		<a href="{{ page.permalink }}" class="page-link">{{ page.title }}</a>
+	</h2>
+	<time datetime="{{ page.date }}" class="page-date">
+		написано
+		{{ self::zeroextend(num=page.day) }}.{{ self::zeroextend(num=page.month) }}.{{ page.year }}
+	</time>
+</header>
+{{ content | safe }}
+{% endmacro page %}

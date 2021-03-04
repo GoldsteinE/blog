@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+{% block title %}goldstein's blog{% endblock title %}
+
+{% block content %}
+	{% for page in section.pages %}
+		<section class="page-entry">
+			{{ macros::page(page=page, content=page.summary) }}
+		</section>
+	{% endfor %}
+{% endblock content %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}{{ section.title }} @ goldstein's blog{% endblock %}</title>
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<header class="main-header">
+			<h1 class="logo">
+				<a href="/">
+					goldstein's blog
+				</a>
+				{% if section %}
+					{% set ancestors = section.ancestors | concat(with=section.relative_path) %}
+				{% elif page %}
+					{% set ancestors = page.ancestors %}
+				{% endif %}
+
+				{% for ancestor_path in ancestors | slice(start=1) %}
+					{% set ancestor = get_section(path=ancestor_path, metadata_only=true) %}
+					::
+					<a href="{{ ancestor.permalink }}">{{ ancestor.title }}</a>
+				{% endfor %}
+			</h1>
+		</header>
+		<main>	
+			{% block content %}
+			{% endblock content %}
+		</main>
+	</body>
+</html>

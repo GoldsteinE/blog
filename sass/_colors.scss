@@ -1,0 +1,12 @@
+$code-bg-color: #2b2c2f;
+
+$bg-color: darken($code-bg-color, 10%);
+$fg-color: #cccece;
+
+$header-bg-color: darken($bg-color, 5%);
+$logo-fg-color: #d8a47f;
+
+$link-fg-color: $fg-color;
+
+$table-borders-color: lighten($bg-color, 20%);
+$blockquote-rule-color: lighten($bg-color, 50%);
