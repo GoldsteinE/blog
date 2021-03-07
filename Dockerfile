@@ -1,4 +1,4 @@
-FROM balthek/zola:0.13.0 AS build
+FROM goldsteinq/pepel:latest AS build
 COPY . /blog
 WORKDIR /blog
 RUN ["zola", "build"]

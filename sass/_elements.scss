@@ -1,16 +1,16 @@
 h1, h2, h3, h4, h5, h6 {
 	@include headers-font;
+}
 
-	& > a {
-		text-decoration: none;
-	}
+a.header-link {
+	text-decoration: none;
 }
 
 // Sections inside the page
 h3, h4, h5, h6 {
 	padding-top: 1rem;
 
-	& > a:hover {
+	&:hover {
 		color: $link-fg-color;
 
 		&::after {
@@ -38,6 +38,21 @@ h4, h5, h6 {
 pre {
 	padding: 0.5em;
 	overflow-x: auto;
+}
+
+.code-wrapper {
+	margin: 0;
+	background-color: $code-bg-color;
+}
+
+.code-lang {
+	padding: 0.2em;
+	padding-left: 0.5em;
+	border-bottom: 2px dashed $bg-color;
+}
+
+pre {
+	margin-top: 0;
 }
 
 code {
