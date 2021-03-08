@@ -1,6 +1,12 @@
 base_url = "https://blog.goldstein.rs/"
 compile_sass = true
 
+plugins = [
+	'add_lang_to_code_blocks',
+	'linkify_headers',
+	'remove_comments',
+]
+
 [markdown]
 highlight_code = true
 highlight_theme = "charcoal"
