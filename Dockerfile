@@ -1,4 +1,4 @@
-FROM goldsteinq/pepel:0.13.0-plugins1 AS build
+FROM goldsteinq/pepel:0.13.0-plugins2 AS build
 COPY . /blog
 WORKDIR /blog
 RUN ["zola", "build"]

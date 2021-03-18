@@ -8,8 +8,8 @@ plugins = [
 ]
 
 [markdown]
-highlight_code = true
-highlight_theme = "charcoal"
+highlight_type = "Classed"
+highlight_theme = ["charcoal"]
 extra_syntaxes = ["syntaxes"]
 
 [extra]
