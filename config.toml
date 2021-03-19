@@ -9,7 +9,7 @@ plugins = [
 
 [markdown]
 highlight_type = "Classed"
-highlight_theme = ["charcoal"]
+highlight_theme = ["charcoal", "subway-moscow"]
 extra_syntaxes = ["syntaxes"]
 
 [extra]

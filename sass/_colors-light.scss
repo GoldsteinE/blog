@@ -1,0 +1,13 @@
+$code-bg-color: #ffffff;
+
+$bg-color: #ffffff;
+$fg-color: darken(#383a42, 20%);
+
+$header-bg-color: #d8a47f;
+$logo-fg-color: $bg-color;
+
+$link-fg-color: $fg-color;
+$link-hover-fg-color: darken($link-fg-color, 30%);
+
+$table-borders-color: darken($bg-color, 20%);
+$blockquote-rule-color: darken($bg-color, 50%);

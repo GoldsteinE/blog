@@ -1,10 +1,28 @@
 @import 'normalize';
 
 @import 'fonts';
-@import 'colors';
+@import 'colors-light';
 @import 'elements';
 @import 'main-header';
-@import 'themes/charcoal';
+@import 'themes/subway-moscow';
+
+.code-lang {
+	border-bottom: 0;
+	background: darken($bg-color, 5%);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+pre {
+	border: 1px solid darken($bg-color, 5%);
+	border-top: none;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+:not(pre) > code {
+	background-color: darken($bg-color, 5%);
+}
 
 body {
 	@include main-font;
