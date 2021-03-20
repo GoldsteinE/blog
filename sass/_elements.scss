@@ -36,6 +36,7 @@ h4, h5, h6 {
 }
 
 pre {
+	border: 0;
 	padding: 0.5em;
 	overflow-x: auto;
 	line-height: 1.35;
@@ -49,14 +50,17 @@ pre {
 .code-lang {
 	padding: 0.2em;
 	padding-left: 0.5em;
+	border: 0;
+	border-radius: 0;
 	border-bottom: 2px dashed $bg-color;
+	background-color: $code-bg-color;
 }
 
 pre {
 	margin-top: 0;
 }
 
-code {
+code, :not(pre) > code {
 	@include monospace-font;
 
 	white-space: pre;
