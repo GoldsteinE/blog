@@ -5,6 +5,7 @@ plugins = [
 	'add_lang_to_code_blocks',
 	'linkify_headers',
 	'remove_comments',
+    'link_back_footnotes',
 ]
 
 [markdown]

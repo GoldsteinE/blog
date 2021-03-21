@@ -82,3 +82,40 @@ main {
 	width: 1em;
 	fill: $fg-color;
 }
+
+.modal {
+    position: fixed;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $bg-color;
+    border: 2px solid $fg-color;
+    border-radius: 15px;
+    padding: {
+        left: 3em;
+        right: 3em;
+        top: 3em;
+        bottom: 3em;
+    };
+}
+
+.modal-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1.5em;
+}
+
+.modal-button {
+    text-decoration: none;
+    padding: {
+        top: 0.5em;
+        bottom: 0.5em;
+        left: 1em;
+        right: 1em;
+    };
+    border: 1px solid $fg-color;
+    border-radius: 5px;
+    width: 3em;
+    text-align: center;
+}

@@ -47,13 +47,17 @@ pre {
 	background-color: $code-bg-color;
 }
 
-.code-lang {
+.code-lang, .code-filename {
 	padding: 0.2em;
 	padding-left: 0.5em;
 	border: 0;
 	border-radius: 0;
 	border-bottom: 2px dashed $bg-color;
 	background-color: $code-bg-color;
+}
+
+.code-filename {
+	@include monospace-font;
 }
 
 pre {
@@ -76,7 +80,7 @@ pre > code {
 	background-color: inherit;
 }
 
-p {
+p, li {
 	line-height: 1.8;
 }
 
@@ -117,4 +121,21 @@ td, th {
 		left: 1em;
 		right: 1em;
 	};
+}
+
+.footnote-reference > a {
+    text-decoration: underline dotted;
+}
+
+.footnote-definition {
+    font-size: 0.8em;
+
+    & > p {
+        // WTF, Zola
+        display: inline;
+    }
+
+    & > a {
+        font-size: 0.75em;
+    }
 }

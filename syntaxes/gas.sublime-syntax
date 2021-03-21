@@ -1,0 +1,501 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+file_extensions:
+  - gas
+scope: source.gas
+contexts:
+  main:
+
+    # comment multiline
+    - match: '/\*'
+      scope: punctuation.definition.comment.gas
+      push: multiline_comment
+
+    # comment line
+    - match: '//'
+      scope: punctuation.definition.comment.gas
+      push: line_comment
+
+    # comment line
+    - match: '#'
+      scope: punctuation.definition.comment.gas
+      push: line_comment
+
+    # single quoted string
+    - match: "'"
+      scope: punctuation.definition.single-quoted-string.gas
+      push: single_quoted_string
+
+    - match: '"'
+      scope: punctuation.definition.double-quoted-string.gas
+      push: double_quoted_string
+
+    #
+    # registers
+    #
+
+    # rax rbx rcx rdx eax ebx ecx edx ax bx cx dx
+    - match: '%[re]?[abcd]x\b'
+      scope: variable.language.gas
+
+    # ah bh ch dh al bl cl dl
+    - match: '%[abcd][hl]\b'
+      scope: variable.language.gas
+
+    # si di bp sp sil dil bpl spl
+    - match: '%(si|si|bp|sp)l?\b'
+      scope: variable.language.gas
+
+    # rsi rdi rbp rsp esi edi ebp esp
+    - match: '%[re](si|di|bp|sp)\b'
+      scope: variable.language.gas
+
+    # r8-15 r8b-r15b r8w-r15w r8d-r15d
+    - match: '%r([89]|1[0-5])[bwd]?\b'
+      scope: variable.language.gas
+
+    # ip
+    - match: '%[re]?ip\b'
+      scope: variable.language.gas
+
+    # msw
+    - match: '%msw\b'
+      scope: variable.language.gas
+
+    # flags
+    - match: '%[er]?flags\b'
+      scope: variable.language.gas
+
+    # segment
+    - match: '%[cdefgs]s\b'
+      scope: variable.language.gas
+
+    # gdt
+    - match: '%([gil]d)?tr\b'
+      scope: variable.language.gas
+
+    # ?
+    - match: '%([cst]w|fp_(ip|dp|cs|ds|opc|dp|ip))\b'
+      scope: variable.language.gas
+
+    # cr0-cr15 dr0-dr15
+    - match: '%[cd]r(1[0-5?]|[0-9])\b'
+      scope: variable.language.gas
+
+    # st0-st7 mm0-mm7
+    - match: '%(mm|st)[0-7]\b'
+      scope: variable.language.gas
+
+    # xmm0-xmm15 ymm0-1ymm15 zmm0-zmm15
+    - match: '%[xyz]mm(1[0-5]?|[0-9])\b'
+      scope: variable.language.gas
+
+    # zmm16-zmm31
+    - match: '%zmm(1[6-9]|2[0-9]|3[01])'
+      scope: variable.language.gas
+
+    # mxcsr
+    - match: '%mxcsr\b'
+      scope: variable.language.gas
+
+    #
+    # instructions
+    #
+
+    - match: |
+        (?ix)
+        \b(?:
+          # without -b, -l, -w and -q
+          aa[adms]|arplw?|callld|cbtw|cbw|cdqe?|cl[cdi]|clflush|clgi|cmc|
+          clt[dqs]|cmpxchg(?:16b|8bq?)|cpuid|cqt?o|cwde?|cwt[ld]|da[as]|f?emms|
+          getsec|hlt|int[o3]?|lahf|[lsm]fence|lldtw?|llwpcb|lmsww?|ltrw?|lwpins|
+          lwpval|monitor|montmul|mwait|pause|rd[fg]sbase|rdmsr|rdpmc|rdrand|
+          rdtscp?|rsm|sahf|syscall
+          |
+          # f- prependent
+          f(?:com(?:ip?|pi)|cos|n?disi|n?eni|freep|nsetpm||nstsw|prem1|rstpm|
+          setpm|sin(?:cos)|stsw)
+          |
+          # cmpsd ?
+          # with -b, -l, -w and -q (and without)
+          (?:adc|add|and|clr|cmps?|(?:cmp)?xchg|crc32|dec|i?div|i?mul|inc|ins|lods|
+          neg|xor|no[tp]|or|mov(?:abs)?|rc[lr]|ro[lr]|sa[lr]|sbb|scas|scmp|
+          shl|smov|slod|ssca|ssto|stos|sub|test|shr|xadd)
+            [blwq]?
+          |
+          # with -b, -l and -w (and without)
+          (?:in|outs?)
+            [blw]?
+          # with -l and -q only (and without)
+          (?:andn|bextr|bl[cs]fill|blcic?|bl[cs]msk|blcs|blsic?|blsr|bswap|bzhi|
+          movnti|mulx|pdep|pext|rorx|sarx|shlx|shrx|sysret|t1mskc|tzmsk)
+            [lq]?
+          |
+          # with -l and -w only (and without)
+          (?:bound|lcall|l[defgs]s|ljmp|popa|pusha)
+            [lw]?
+          |
+          # with -l, -w and -q only (and without)
+          (?:bsf|bsr|bt[crs]|call|enter|[il]?retf?|lar|lea(?:ve)?|l[ig]dt|lsl|
+          lzcnt|popcnt|popf?|pushf?|sldt|smsw|sidt|sgdt|str|shld|tzcnt|shrd)
+            [lwq]?
+          |
+          # -a, -ae, -b, -be, -e, -na, -nae, -nb, -nbe, -ne, -nu, -u
+          (?:fcmov)
+            n?(?:[ab]e?|e|u)
+          |
+          # -l, -ll, -q, -s (and without)
+          (?:fisttp)
+            (?:ll?|q|s)?
+          |
+          # fucom-
+          fucom(?:ip?|pi?|pp)?
+          |
+          # with and without -q -64 -64q
+          (?:fxrstor|fxsave|xrstor|xsave|xsaveopt)(?:64)?q?
+          |
+          # inv-
+          inv(?:d|ept|lpga?|(?:pc|vp)id)
+          |
+          # -mxcsr
+          (?:ld|vts|st|vld)mxcsr
+          |
+          # loops
+          loop(?:n?[ez][lwq]?|pl|q|w)
+          |
+          # jumps
+          j(?:
+            (?:n?(?:[abgl]e?|[ceopsz]))|
+            p[eo]|[er]?cxz|mp[lwq]?|mpld
+          )
+          |
+          # some movs
+          movbe|movbel|movbeq|movbew|movs|movsb|movsbl|movsbq|movsbw|movsd|
+          movsl|movslq|movsq|movsw|movswl|movswq|movsx|movsxb|movsxl|movsxw|
+          movsxd|movsxdl|movzb|movzbl|movzbq|movzbw|movzwl|movzwq|movzx|movzxb|
+          movzxw
+          |
+          # prefetch
+          prefetch[a012w]
+          |
+          # sets
+          set(?:
+            (?:n?[abgl](?:b|e|eb)?)|
+            (?:n?[opszce]b?)|
+            (?:p[eo]b?)
+          )
+          |
+          # cmovs
+          cmov(?:
+            n?(?:[abceglopsz]|[abgl]e)|
+            p[oe]
+          )[lqw]?
+          |
+          # xcrypt
+          xcrypt-?(?:cbc|cfb|ctr|ecb|ofb)
+          |
+          # vm-
+          vm(?:m?call|clear|func|launch|load|ptrld|ptrst|read[lq]?|resume|run|
+            save|write[lq]?|vmxoff|vmxon)
+          |
+          # misc/remainder
+          skinit|slwpcb|st[cdi]|stgi|swapgs|sysenter|sysexit|ud[12]|ud2a|ud2b|
+          verrw?|verww?|vzeroall|vzeroupper|wbinvd|wr[fg]sbase|wrmsr|xabort|
+          xbegin|xend|xgetbv|xlat|xlatb|xsetbv|xsha1|xsha256|xstore-?rng|xtest
+        )\b
+      scope: keyword.operator.gas
+    # mmx instructions
+
+    - match: '\b(emms|p(add|sub)(u?s?[bw]|d)|ps[lr][wdq]|psra[wd])\b'
+      scope: keyword.operator.gas
+
+    - match: '\bp((andn?|x?or)|maddwd|mul[hl]w|pcmp(eqb|gt[bwd]))\b'
+      scope: keyword.operator.gas
+
+    - match: '\bpack(ss(wb|dw)|uswb)\b'
+      scope: keyword.operator.gas
+
+    - match: '\bpunpck[hl](bw|wd|dq)\b'
+      scope: keyword.operator.gas
+
+    # mmxext insructions
+
+    - match: '\bp(addsiw|aveb|distib|machriw|magw|mulhrw|mvzb|subsiw)\b'
+      scope: keyword.operator.gas
+
+    # 3dnow! instructions
+
+    - match: '\b(femms|p(avgusb|i2fd|f2id|fcmp(g[et]|eq)|fa[cd]{2}))\b'
+      scope: keyword.operator.gas
+
+    - match: '\bp(fsubr?|fm(in|ax|ul)|frcp(it[12])?|frsq(rt|it1)|refetchw?)\b'
+      scope: keyword.operator.gas
+
+    # sse instructions
+
+    - match: '\bmov(ss|(a|u|l|h|lh|hl)ps)\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(add|sub|mul|div|rcp|sqrt|max|min|rsqrt|cmp)(ss|ps)\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(u?comiss|shufps|unpck[hl]ps)\b'
+      scope: keyword.operator.gas
+
+    - match: '\bcvt(si2ss|t?ss2si|pi2ps|t?ps2pi)\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(and|or|xor|andn)ps\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(pmulhuw|psadbw|pav(gb|gw)|p(min|max)(ub|sw))\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(pextrw|pinsrw|pmovmskb|pshufw|ldmxcsr|stmxcsr|movnt(q|ps))\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(maskmovq|prefetch([0-2]|nta)|sfence)\b'
+      scope: keyword.operator.gas
+
+    # sse2 instructions
+
+    # ???
+
+    # sse3 instructions
+
+    - match: '\b(fisttp|mov(sl|sh|d)dup|lddqu|addsubpd|h?(add|sub)(ps|pd))\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(monitor|mwait)\b'
+      scope: keyword.operator.gas
+
+    # ssse3 instrunctions
+
+    - match: '\b((pabs|psign)[bwd]|palignr|pshufb|pm(ulhrsw|addubsw))\b'
+      scope: keyword.operator.gas
+
+    - match: '\bph(sub|add)(s?w|d)\b'
+      scope: keyword.operator.gas
+
+    # sse4 instructions
+
+    - match: '\b(pmul(ld|dq)|dpp[sd]|blendv?p[sd]|pblend(vd|sw))\b'
+      scope: keyword.operator.gas
+
+    - match: '\bpm(in|ax)(sb|uw|ud|ds|sd)\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(round[ps][sd]|insertps|pinsr[bdq]|extractps)\b'
+      scope: keyword.operator.gas
+
+    - match: '\bpextr[bdwq]\b'
+      scope: keyword.operator.gas
+
+    - match: '\bpmov[sz]x(b[wdq]|w[dq]|dq)\b'
+      scope: keyword.operator.gas
+
+    - match: '\b(ptest|pcmp(eqq|gto)|packusdw|pcmp[ei]str[im])\b'
+      scope: keyword.operator.gas
+
+    # sse4 (ata)
+    - match: '\bcrc32|popcnt\b'
+      scope: keyword.operator.gas
+
+    # sse4a instructions
+
+    - match: '\b((lz|pop)cnt|extrq|insertq|movnts[sd])\b'
+      scope: keyword.operator.gas
+
+    # sse5 instructions
+
+    # aes instructions
+
+    - match: '\baes((enc|dec)(last)?|keygenassist|imc)\b'
+      scope: keyword.operator.gas
+
+    # avx instructions
+
+    - match: '\bvbroadcast(ss|sd|f128)\b'
+      scope: keyword.operator.gas
+
+    - match: '\bv(insert|extract|perm2)f128\b'
+      scope: keyword.operator.gas
+
+    - match: '\bv(maskmov|permil)p[sd]\b'
+      scope: keyword.operator.gas
+
+    - match: '\bvzero(all|upper)\b'
+      scope: keyword.operator.gas
+
+    # avx pclmul
+
+    - match: '\bpclmul([lh]q{2}|q)dq\b'
+      scope: keyword.operator.gas
+
+    # fma3, fma4
+
+    - match: '\bvfmadd(132|213|231)?(p[sd][xy]|s[sd])\b'
+      scope: keyword.operator.gas
+
+    # macros
+
+    # sections (macro)
+    - match: '\.(?:data|rodata|text|section)\b'
+      scope: storage.type.modifier.gas
+
+    # macros
+    - match: |
+        (?x)\.
+        (?:
+          intel_syntax|
+          abort|
+          align|
+          balign[wl]|
+          byte|
+          comm|
+          def|
+          dim|
+          eject|
+          else|
+          end|
+          elseif|
+          endef|
+          endfunc|
+          endif|
+          endm|
+          endr|
+          equ|
+          equiv|
+          err|
+          even|
+          exitm|
+          extern|
+          fail|
+          file|
+          fill|
+          func|
+          global|
+          ident|
+          if|
+          include|
+          incbin|
+          irp|
+          irpc|
+          lcomm|
+          lflags|
+          line|
+          ln|
+          list|
+          macro|
+          mri|
+          nolist|
+          org|
+          p2align[wl]|
+          print|
+          psize|
+          purgem|
+          rept|
+          sbttl|
+          scl|
+          set|
+          size|
+          stabd|
+          stabn|
+          stabs|
+          struct|
+          tag|
+          title|
+          type|
+          val|
+          vtable_entry
+        )\b
+      scope: support.function.gas
+    # data types (macro)
+    - match: |
+        (?x)\.
+        (?:
+          ascii|
+          asciiz|
+          byte|
+          double|
+          float|
+          hword|
+          int|
+          long|
+          octa|
+          quad|
+          short|
+          single|
+          sleb128|
+          string|
+          uleb128|
+          word|
+          skip|
+          space
+        )
+      scope: support.type.gas
+    # operators
+    - match: '(:?\*|/|%|<[<=>]?|>[>=]?|\|\|?|&&?|\^|!|\+|-|==?)'
+      scope: keyword.operator.gas
+
+    # dot
+    - match: '\s+\.(?![A-Za-z0-9_$.])'
+      scope: storage.type.gas
+
+    # label (exclusive numeric labels like 1:, 2: etc)
+    - match: '^[.A-Za-z_$][A-Za-z0-9_.$]*\b(?=:)'
+      scope: entity.name.function.gas
+
+    # local label
+    - match: '\.L[.A-Za-z_$][A-Za-z0-9_.$]*\b'
+      scope: entity.name.function.gas
+
+    # float point
+
+    - match: '(?:\$|\b)[0-9]+\.[0-9]+(?:[eE][+-][0-9]+)?'
+      scope: constant.numeric.gas
+
+    # hex
+
+    - match: '(?:\$|\b)0[xX][0-9A-Fa-f]+\b'
+      scope: constant.numeric.gas
+
+    # oct
+
+    - match: '(?:\$|\b)0[0-7]*\b'
+      scope: constant.numeric.gas
+
+    # dec
+
+    - match: '(?:\$|\b)[1-9][0-9]*\b'
+      scope: constant.numeric.gas
+
+  multiline_comment:
+    - meta_scope: comment.block.gas
+    - match: '\*/'
+      scope: punctuation.definition.comment.gas
+      pop: true
+
+  line_comment:
+    - meta_scope: comment.line.gas
+    - match: $
+      pop: true
+
+  single_quoted_string:
+    - meta_scope: string.quoted.single.gas
+    - match: "'"
+      scope: punctuation.definition.single-quoted-string.gas
+      pop: true
+
+  double_quoted_string:
+    - meta_scope: string.quoted.double.gas
+    - match: '\\[0-7]{3}'
+      scope: constant.character.escape.gas
+    - match: '\\[0-9A-Fa-f]+'
+      scope: constant.character.escape.gas
+    - match: '\\.'
+      scope: constant.character.escape.gas
+    - match: '"'
+      scope: punctuation.definition.double-quoted-string.gas
+      pop: true
