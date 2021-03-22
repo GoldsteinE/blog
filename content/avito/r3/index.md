@@ -120,7 +120,7 @@ PostScript это стековый, динамический язык прогр
 * К сожалению, большая часть PostScript, который генерируют программы, гораздо менее человекочитаема.
   Обычно автоматически сгенерированный PostScript выглядит примерно так:
 
-  ```
+  ```auto-generated postscript
   currentfile /ASCII85Decode filter /LZWDecode filter cvx exec
   J.'GP1)YJ2:a-L/6rF=&5]f",9VMV4PfsINPg$$lJV;<[.@O%03.smQ(5rht"Yl-EjCpYCbf1<)
   c6j?bR*MTSOd+XC1)`i!8/)[G#_bVh`j9ZtmVY1>Vc1_1!ej$n_-lc">Vn_g3WbAM)4]4"@PjL3
