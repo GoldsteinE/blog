@@ -4,6 +4,7 @@ compile_sass = true
 plugins = [
 	'add_lang_to_code_blocks',
 	'linkify_headers',
+	'linkify_images',
 	'remove_comments',
     'link_back_footnotes',
 ]
