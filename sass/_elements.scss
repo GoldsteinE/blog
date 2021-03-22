@@ -123,6 +123,14 @@ td, th {
 	};
 }
 
+img {
+	display: block;
+	margin: {
+		left: auto;
+		right: auto;
+	};
+}
+
 .footnote-reference > a {
     text-decoration: underline dotted;
 }
