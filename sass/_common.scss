@@ -55,15 +55,27 @@ main {
 }
 
 .main-footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+
 	width: 100%;
-	text-align: right;
 	box-sizing: border-box;
 	padding: {
-		top: 0.5em;
+		top: 5em;
 		bottom: 0.5em;
 		right: 1em;
 	};
 	font-size: 0.8rem;
+}
+
+.license {
+	padding-left: 1em;
+}
+
+.main-footer-nav {
+	text-align: right;
 }
 
 .theme-switcher {
