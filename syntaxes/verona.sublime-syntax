@@ -1,0 +1,46 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: Verona
+file_extensions:
+  - verona
+scope: source.verona
+contexts:
+  main:
+    - match: class
+      scope: keyword.verona
+      push: class_name
+    - match: '\b(if|else|var|when|cown|mut-view|imm-view|new|in)\b'
+      scope: keyword.verona
+    - match: '\b(imm|iso|mut)\b'
+      scope: entity.other.attribute-name.verona
+    - match: '\b[0-9]+\.[0-9]+\b'
+      scope: constant.numeric.float.decimal.verona
+    - match: '\b[0-9]+\b'
+      scope: constant.numeric.integer.decimal.verona
+    - match: '\b[a-zA-Z][a-zA-Z0-9_]*(?=\()'
+      scope: entity.function.name.verona
+    - match: '/\*'
+      push: multiline_comment
+    - match: '//'
+      push: single_comment
+    - match: '"'
+      push: string
+  class_name:
+    - match: '[a-zA-Z][a-zA-Z0-9_]*'
+      scope: entity.class.name.type.verona
+      pop: true
+  multiline_comment:
+    - meta_scope: comment.block.verona
+    - match: '\*/'
+      pop: true
+  single_comment:
+    - meta_scope: comment.block.verona
+    - match: '$'
+      pop: true
+  string:
+    - meta_scope: string.quoted.double.verona
+    - match: '\\.'
+      scope: constant.string.escape.verona
+    - match: '"'
+      pop: true

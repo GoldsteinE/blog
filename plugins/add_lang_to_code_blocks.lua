@@ -1,6 +1,7 @@
 local langs = {
 	cpp = 'C++',
 	gas = 'GNU Assembly',
+	ocaml = 'OCaml',
 }
 
 local function extract_lang(tag)
