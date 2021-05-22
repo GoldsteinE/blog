@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/light.css" media="(prefers-color-scheme: light)">
 		<link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
 		<link rel="stylesheet" href="/override/theme.css">
+		<script async defer data-domain="blog.goldstein.rs" src="https://stats.goldstein.rs/js/plausible.js"></script>
 		<!-- favicons are hard -->
 		<meta name="theme-color" content="#d8a48f">
 		<meta name="msapplication-config" content="/icons/browserconfig.xml">
@@ -39,6 +40,14 @@
 		<main>	
 			{% block content %}
 			{% endblock content %}
+			<aside class="comments">
+				<script src="/utterances.js"
+						repo="GoldsteinE/blog-comments"
+						issue-term="url"
+						theme="github-dark"
+						crossorigin="anonymous"
+						async>
+			</aside>
 		</main>
 		<footer class="main-footer">
 			<div class="license">
